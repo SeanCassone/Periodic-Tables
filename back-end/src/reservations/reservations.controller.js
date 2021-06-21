@@ -32,13 +32,21 @@ async function hasValidFields(req, res, next) {
 }
 
 async function hasValidDateTime(req, res, next) {
-  const { reservation_date, reservation_time, people } = req.body.data;
+
+  const { reservation_date, reservation_time } = req.body.data;
   // sets currentDate to today
   const currentDate = new Date();
   // returns a new date instance given the current reservation date and time
   const reservationDate = new Date(reservation_date + " " + reservation_time);
   // gets the day of the reservation as a number. Number 2 is equal to Tuesday
   const weekday = reservationDate.getDay();
+  // gets the reservation hour in UTC format
+  const reservationHour = reservationDate.getHours();
+  // gets the reservation minutes in UTC format
+  const reservationMinutes = reservationDate.getMinutes();
+  // formats the hours and minutes in this shape 00:00
+  const reservationTime = `${reservationHour}:${reservationMinutes}`;
+
 
   // returns 400 if reservation_time is not a time that matches 00:00 format
   if (!reservation_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
@@ -67,6 +75,14 @@ async function hasValidDateTime(req, res, next) {
       status: 400,
       message:
         "Reservation day is Tuesday. The restaurant is closed on Tuesdays .",
+    });
+  }
+
+  // Validates that reservation time is during buisness hours
+  if (reservationTime < "10:30" || reservationTime > "21:30") {
+    return next({
+      status: 400,
+      message: "The reservation time must be between 10:30AM and 10:30PM.",
     });
   }
   next();
