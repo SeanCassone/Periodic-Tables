@@ -88,3 +88,25 @@ export async function createReservation(reservation, signal) {
   };
   return await fetchJson(url, options);
 }
+
+/**
+ * Saves Table to the database.
+ * There is no validation done on the deck object, any object will be saved.
+ * @param table
+ *  the table to save, which must not have an `table_id` property and references the reservation_id
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<reservation>}
+ *  a promise that resolves the saved table, which will now have an `table_id` property.
+ */
+
+export async function createTable(table, signal) {
+  const url = `${API_BASE_URL}/tables`;
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ data: table }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
