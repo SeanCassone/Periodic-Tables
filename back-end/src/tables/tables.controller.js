@@ -1,6 +1,6 @@
 const service = require("./tables.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
-const VALID_FIELDS = ["table_name", "capacity", "reservation_id"];
+const VALID_FIELDS = ["table_name", "capacity"];
 
 async function hasValidFields(req, res, next) {
   const { data } = req.body;
@@ -26,7 +26,7 @@ async function hasValidFields(req, res, next) {
 async function hasValidTableName(req, res, next) {
   const { table_name } = req.body.data;
   //returns 400 if table name is one character
-  if (table_name.length <= 1) {
+  if (table_name.length < 2) {
     return next({
       status: 400,
       message: `The table_name must be more than one character`,
@@ -68,8 +68,8 @@ module.exports = {
   list: asyncErrorBoundary(list),
   create: [
     asyncErrorBoundary(hasValidFields),
-    asyncErrorBoundary(hasValidTableName),
     asyncErrorBoundary(hasValidCapacity),
+    asyncErrorBoundary(hasValidTableName),
     asyncErrorBoundary(create),
   ],
 };

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function ReservationTable({ reservation }) {
   const {
     reservation_id,
@@ -19,6 +20,14 @@ function ReservationTable({ reservation }) {
         <td> {last_name}</td>
         <td>{mobile_number}</td>
         <td>{people}</td>
+        <td className="text-center">
+          <Link
+            className="btn btn-primary ml-1 mt-2"
+            to={`/reservations/${reservation.reservation_id}/seat`}
+          >
+            Seat
+          </Link>
+        </td>
       </tr>
     </tbody>
   );

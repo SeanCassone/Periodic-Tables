@@ -64,6 +64,7 @@ function ReservationList({ date, reservations }) {
             <th scope="col">Last name</th>
             <th scope="col">Phone</th>
             <th scope="col">Party of</th>
+            <th scope="col">Seating</th>
           </tr>
         </thead>
         {reservations.length ? tableRows : null}
