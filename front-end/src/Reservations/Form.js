@@ -1,3 +1,5 @@
+import { today } from "../utils/date-time";
+
 function Form({ reservation, handleChange, submitHandler, cancel }) {
   const {
     first_name,
@@ -6,6 +8,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
     reservation_date,
     reservation_time,
   } = reservation;
+
   return (
     <form onSubmit={submitHandler}>
       <div className="row g-2">
@@ -49,13 +52,15 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             className="form-control"
             id="mobile_number"
             name="mobile_number"
-            type="text"
+            type="tel"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             required={true}
             value={mobile_number}
             placeholder="Mobile number"
             aria-label="Mobile number"
             onChange={handleChange}
           />
+          <small>Format: 123-456-7890</small>
         </div>
         {/* Form input */}
         <div className="col-md">
@@ -64,11 +69,12 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             className="form-control"
             id="people"
             name="people"
-            type="text"
+            type="number"
             required={true}
             placeholder="Number of people"
             aria-label="Number of people"
-            defaultValue="1"
+            min="1"
+            max="50"
             onChange={handleChange}
           />
         </div>
@@ -89,6 +95,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             defaultValue={reservation_date}
             aria-label="Reservation date"
             onChange={handleChange}
+            min={today()}
           />
         </div>
         {/* Form input */}
@@ -102,6 +109,8 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             placeholder="HH:MM"
             pattern="[0-9]{2}:[0-9]{2}"
             required={true}
+            min="10:30"
+            max="21:30"
             defaultValue={reservation_time}
             aria-label="Reservation time"
             onChange={handleChange}
