@@ -66,7 +66,7 @@ function ReservationList({ date, reservations }) {
             <th scope="col">Party of</th>
           </tr>
         </thead>
-        {reservations.length ? tableRows : `No Reservations for ${date}`}
+        {reservations.length ? tableRows : null}
       </table>
     </div>
   );

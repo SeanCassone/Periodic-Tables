@@ -32,6 +32,7 @@ async function hasValidFields(req, res, next) {
 }
 
 async function hasValidDateTime(req, res, next) {
+
   const { reservation_date, reservation_time } = req.body.data;
   // sets currentDate to today
   const currentDate = new Date();
@@ -45,6 +46,7 @@ async function hasValidDateTime(req, res, next) {
   const reservationMinutes = reservationDate.getMinutes();
   // formats the hours and minutes in this shape 00:00
   const reservationTime = `${reservationHour}:${reservationMinutes}`;
+
 
   // returns 400 if reservation_time is not a time that matches 00:00 format
   if (!reservation_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
@@ -75,6 +77,7 @@ async function hasValidDateTime(req, res, next) {
         "Reservation day is Tuesday. The restaurant is closed on Tuesdays .",
     });
   }
+
   // Validates that reservation time is during buisness hours
   if (reservationTime < "10:30" || reservationTime > "21:30") {
     return next({
