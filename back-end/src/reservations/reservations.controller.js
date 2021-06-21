@@ -37,9 +37,8 @@ async function hasValidDateTime(req, res, next) {
   const currentDate = new Date();
   // returns a new date instance given the current reservation date and time
   const reservationDate = new Date(reservation_date + " " + reservation_time);
-  // gets the day of the reservation as a number in UTC format. Number 2 is equal to Tuesday
-  const weekdayUTC = reservationDate.getDay();
-  // gets the reservation hour in UTC format
+  // gets the day of the reservation as a number. Number 2 is equal to Tuesday
+  const weekday = reservationDate.getDay();
 
   // returns 400 if reservation_time is not a time that matches 00:00 format
   if (!reservation_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
@@ -63,14 +62,13 @@ async function hasValidDateTime(req, res, next) {
     });
   }
   // returns 400 is reservation is on a tuesday
-  if (weekdayUTC === 2) {
+  if (weekday === 2) {
     return next({
       status: 400,
       message:
         "Reservation day is Tuesday. The restaurant is closed on Tuesdays .",
     });
   }
-
   next();
 }
 
