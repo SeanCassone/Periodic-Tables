@@ -33,6 +33,13 @@ async function hasValidFields(req, res, next) {
 
 async function hasValidDateTime(req, res, next) {
   const { reservation_date, reservation_time, people } = req.body.data;
+  // sets currentDate to today
+  const currentDate = new Date();
+  // returns a new date instance given the current reservation date and time
+  const reservationDate = new Date(reservation_date + " " + reservation_time);
+  // gets the day of the reservation as a number. Number 2 is equal to Tuesday
+  const weekday = reservationDate.getDay();
+
   // returns 400 if reservation_time is not a time that matches 00:00 format
   if (!reservation_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
     return next({
@@ -41,13 +48,27 @@ async function hasValidDateTime(req, res, next) {
     });
   }
   // returns 400 if reservation_date is not a valid date
-  if (isNaN(new Date(reservation_date))) {
+  if (isNaN(reservationDate)) {
     return next({
       status: 400,
       message: "reservation_date is not valid date.",
     });
   }
-
+  // returns 400 if not a future reservation
+  if (reservationDate < currentDate) {
+    return next({
+      status: 400,
+      message: "Only future reservations are allowed.",
+    });
+  }
+  // returns 400 is reservation is on a tuesday
+  if (weekday === 2) {
+    return next({
+      status: 400,
+      message:
+        "Reservation day is Tuesday. The restaurant is closed on Tuesdays .",
+    });
+  }
   next();
 }
 
@@ -62,6 +83,7 @@ async function hasValidNumberOfPeople(req, res, next) {
   }
   next();
 }
+
 // List handler for reservation resources
 async function list(req, res) {
   const { date } = req.query;
