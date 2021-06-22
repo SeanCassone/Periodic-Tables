@@ -10,6 +10,19 @@ const VALID_FIELDS = [
   "people",
 ];
 
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  if (reservation) {
+    res.locals.reservation = reservation;
+    return next();
+  }
+  next({
+    status: 404,
+    message: `Reservation ${reservation_id} cannot be found.`,
+  });
+}
+
 async function hasValidFields(req, res, next) {
   const { data } = req.body;
   // returns 400 if data is missing
@@ -89,7 +102,7 @@ async function hasValidDateTime(req, res, next) {
 async function hasValidNumberOfPeople(req, res, next) {
   const { people } = req.body.data;
   // returns 400 if people is not a number or is less than or equal to zero
-  if (typeof people !== "number" || people <= 0) {
+  if (typeof people !== "number" || people < 1) {
     return next({
       status: 400,
       message: "number of people is not a valid number.",
@@ -113,8 +126,14 @@ async function create(req, res) {
   res.status(201).json({ data: newReservation });
 }
 
+function read(req, res, next) {
+  const { reservation } = res.locals;
+  res.json({ data: reservation });
+}
+
 module.exports = {
   list: asyncErrorBoundary(list),
+  read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   create: [
     asyncErrorBoundary(hasValidFields),
     asyncErrorBoundary(hasValidNumberOfPeople),
