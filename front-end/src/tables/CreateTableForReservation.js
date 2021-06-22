@@ -44,7 +44,7 @@ function CreateTableForReservation(params) {
           <form className="mb-3" onSubmit={submitHandler}>
             <div className="input-group mb-3">
               <span className="input-group-text" id="table_name">
-                Table Name
+                Name
               </span>
               <input
                 className="form-control"

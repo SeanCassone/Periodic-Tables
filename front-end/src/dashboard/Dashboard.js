@@ -37,8 +37,8 @@ function Dashboard({ date }) {
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
-      <ReservationList date={date} reservations={reservations} />
       <ErrorAlert error={reservationsError} />
+      <ReservationList date={date} reservations={reservations} />
       <ErrorAlert error={tablesError} />
       <TablesList tables={tables} />
     </main>
