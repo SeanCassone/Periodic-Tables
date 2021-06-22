@@ -69,6 +69,20 @@ export async function listReservations(params, signal) {
 }
 
 /**
+ * Retrieves all existing reservation.
+ * @returns {Promise<[tables]>}
+ *  a promise that resolves to a possibly empty array of tables saved in the database.
+ */
+export async function listTables(signal) {
+  const url = `${API_BASE_URL}/tables`;
+  const options = {
+    headers,
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+/**
  * Saves Reservation to the database.
  * There is no validation done on the deck object, any object will be saved.
  * @param reservation
