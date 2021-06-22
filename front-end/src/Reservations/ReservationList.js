@@ -1,6 +1,5 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { today, previous, next } from "../utils/date-time";
-import ReservationTable from "./ReservationTable";
 
 function ReservationList({ date, reservations }) {
   const history = useHistory();
@@ -42,15 +41,39 @@ function ReservationList({ date, reservations }) {
     );
   };
 
-  const tableRows = reservations.map((reservation) => {
-    return (
-      <ReservationTable
-        key={reservation.reservation_id}
-        reservation={reservation}
-      />
-    );
-  });
-
+  const ReservationsTableBody = reservations.map(
+    ({
+      reservation_id,
+      first_name,
+      last_name,
+      mobile_number,
+      reservation_date,
+      reservation_time,
+      people,
+    }) => {
+      return (
+        <tbody key={reservation_id}>
+          <tr>
+            <th scope="row">{reservation_id}</th>
+            <td>{reservation_date}</td>
+            <td>{reservation_time}</td>
+            <td>{first_name}</td>
+            <td> {last_name}</td>
+            <td>{mobile_number}</td>
+            <td>{people}</td>
+            <td className="text-center">
+              <Link
+                className="btn btn-primary ml-1 mt-2"
+                to={`/reservations/${reservation_id}/seat`}
+              >
+                Seat
+              </Link>
+            </td>
+          </tr>
+        </tbody>
+      );
+    }
+  );
   return (
     <div>
       <div className="mb-3">{controlButtons()}</div>
@@ -67,7 +90,7 @@ function ReservationList({ date, reservations }) {
             <th scope="col">Seating</th>
           </tr>
         </thead>
-        {reservations.length ? tableRows : null}
+        {reservations.length ? ReservationsTableBody : null}
       </table>
     </div>
   );
