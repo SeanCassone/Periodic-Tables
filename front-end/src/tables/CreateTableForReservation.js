@@ -43,9 +43,9 @@ function CreateTableForReservation(params) {
           <h5 className="card-title">Create New Table</h5>
           <form className="mb-3" onSubmit={submitHandler}>
             <div className="input-group mb-3">
-              <span className="input-group-text" id="table_name">
-                Name
-              </span>
+              <label className="input-group-text" htmlFor="table_name">
+                Table Name
+              </label>
               <input
                 className="form-control"
                 id="table_name"
