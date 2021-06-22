@@ -9,7 +9,7 @@ const DEFAULT_TABLE_STATE = {
 };
 
 function CreateTableForReservation(params) {
-  const history = useHistory;
+  const history = useHistory();
   const [tablesError, setTablesError] = useState(null);
   const [formData, setFormData] = useState(DEFAULT_TABLE_STATE);
 
@@ -38,12 +38,12 @@ function CreateTableForReservation(params) {
   return (
     <div>
       <ErrorAlert error={tablesError} />
-      <div class="card mt-3">
-        <div class="card-body">
-          <h5 class="card-title">Create New Table</h5>
+      <div className="card mt-3">
+        <div className="card-body">
+          <h5 className="card-title">Create New Table</h5>
           <form className="mb-3" onSubmit={submitHandler}>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="table_name">
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="table_name">
                 Table Name
               </span>
               <input
@@ -59,8 +59,8 @@ function CreateTableForReservation(params) {
               />
             </div>
             {/* Form Group */}
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="capacity">
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="capacity">
                 Capacity
               </span>
               <input
