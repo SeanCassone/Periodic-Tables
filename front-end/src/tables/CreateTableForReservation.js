@@ -38,54 +38,62 @@ function CreateTableForReservation(params) {
   return (
     <div>
       <ErrorAlert error={tablesError} />
-      <form onSubmit={submitHandler}>
-        <div className="row g-2">
-          <div className="col-md">
-            <label htmlFor="first_name">Table Name</label>
-            <input
-              className="form-control"
-              id="table_name"
-              name="table_name"
-              type="text"
-              required={true}
-              placeholder="Table Name"
-              aria-label="Table name"
-              onChange={handleChange}
-            />
-          </div>
-          {/* Form input */}
-
-          <div className="col-md">
-            <label htmlFor="capacity">Capacity</label>
-            <input
-              className="form-control"
-              id="capacity"
-              name="capacity"
-              type="number"
-              required={true}
-              placeholder="capacity"
-              aria-label="capacity"
-              min="1"
-              max="50"
-              onChange={handleChange}
-            />
-          </div>
-          {/* Form input */}
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Create New Table</h5>
+          <form className="mb-3" onSubmit={submitHandler}>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="table_name">
+                Table Name
+              </span>
+              <input
+                className="form-control"
+                id="table_name"
+                name="table_name"
+                type="text"
+                placeholder=""
+                aria-label="table-name"
+                aria-describedby="table-name"
+                required={true}
+                onChange={handleChange}
+              />
+            </div>
+            {/* Form Group */}
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="capacity">
+                Capacity
+              </span>
+              <input
+                className="form-control"
+                id="capacity"
+                name="capacity"
+                type="number"
+                placeholder=""
+                aria-label="capacity"
+                aria-describedby="capacity"
+                required={true}
+                min="1"
+                max="50"
+                onChange={handleChange}
+              />
+            </div>
+            {/* Form Group */}
+            <div className="d-flex">
+              <button type="submit" className="btn btn-primary ml-1 mt-2">
+                Submit
+              </button>
+              <button
+                type="submit"
+                className="btn btn-danger ml-1 mt-2"
+                onClick={cancel}
+              >
+                Cancel
+              </button>
+            </div>
+            {/* Button Group */}
+          </form>
         </div>
-        <div className="d-flex">
-          <button type="submit" className="btn btn-primary ml-1 mt-2">
-            Submit
-          </button>
-          <button
-            type="submit"
-            className="btn btn-danger ml-1 mt-2"
-            onClick={cancel}
-          >
-            Cancel
-          </button>
-        </div>
-        {/* Button Group */}
-      </form>
+      </div>
     </div>
   );
 }
