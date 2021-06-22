@@ -84,7 +84,6 @@ export async function listTables(signal) {
 
 /**
  * Saves Reservation to the database.
- * There is no validation done on the deck object, any object will be saved.
  * @param reservation
  *  the reservation to save, which must not have an `reservation_id` property
  * @param signal
@@ -120,6 +119,46 @@ export async function createTable(table, signal) {
     method: "POST",
     headers,
     body: JSON.stringify({ data: table }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+/**
+ * Retrieves the reservation with the specified `reservation_id`
+ * @param reservation_id
+ *  the `reservation_id` property matching the desired reservation.
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<any>}
+ *  a promise that resolves to the saved reservation.
+ */
+export async function readReservation(reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}`;
+  const options = {
+    headers,
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+/**
+ * Updates an existing table
+ * @param table_id
+ *   the `table_id` property matching the desired table.
+ * @param reservation_id
+ *  the `reservation_id` property matching the desired reservation.
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<Error|*>}
+ *  a promise that resolves to the updated table.
+ */
+export async function updateTable(table_id, reservation_id, signal) {
+  const url = `${API_BASE_URL}/tables/${table_id}/seat`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { reservation_id: reservation_id } }),
     signal,
   };
   return await fetchJson(url, options);
