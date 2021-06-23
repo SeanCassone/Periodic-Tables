@@ -1,3 +1,4 @@
+const { table } = require("../db/connection");
 const knex = require("../db/connection");
 const tables = "tables";
 
@@ -11,4 +12,16 @@ function create(newTable) {
     .then((createdRecords) => createdRecords[0]);
 }
 
-module.exports = { list, create };
+function read(table_id) {
+  return knex(tables).select("*").where({ table_id: table_id }).first();
+}
+
+function update(updatedTable) {
+  return knex(tables)
+    .select("*")
+    .where({ table_id: updatedTable.table_id })
+    .update(updatedTable, "*")
+    .returning("*");
+}
+
+module.exports = { list, create, read, update };
