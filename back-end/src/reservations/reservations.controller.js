@@ -126,9 +126,9 @@ async function create(req, res) {
   res.status(201).json({ data: newReservation });
 }
 
-function read(req, res, next) {
+async function read(req, res, next) {
   const { reservation } = res.locals;
-  res.json({ data: reservation });
+  res.status(200).json({ data: reservation });
 }
 
 module.exports = {
