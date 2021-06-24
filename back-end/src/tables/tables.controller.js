@@ -11,7 +11,7 @@ function hasValidFields(req, res, next) {
   if (!data) {
     return next({
       status: 400,
-      message: "request recieved is empty.",
+      message: `request recieved is empty.`,
     });
   }
   // returns 400 if any field is empty or missing
@@ -45,7 +45,7 @@ function hasValidTableName(req, res, next) {
 async function tableExists(req, res, next) {
   const { table_id } = req.params;
 
-  const table = await services.read(table_id);
+  const table = await service.read(table_id);
   if (!table) {
     return next({
       status: 404,
@@ -57,16 +57,16 @@ async function tableExists(req, res, next) {
 }
 
 async function reservationExists(req, res, next) {
-  if (!req.body.data.reservation_id)
-    return next({
-      status: 404,
-      message: "Form cannot be empty, must include reservation_id",
-    });
-
   const { reservation_id } = req.body.data;
   const reservation = await reservationService.read(reservation_id);
 
-  if (!reservation || reservation.length < 1) {
+  if (!reservation_id)
+    return next({
+      status: 404,
+      message: `Form cannot be empty, must include reservation_id`,
+    });
+
+  if (!reservation) {
     return next({
       status: 404,
       message: `Reserveration ${reservation_id} cannot be found.`,
@@ -76,10 +76,46 @@ async function reservationExists(req, res, next) {
   next();
 }
 
-function validCapacity(req, res, next) {
+function hasValidCapacity(req, res, next) {
+  const { capacity } = req.body.data;
+  //returns 400 if capacity is not a number
+  if (capacity !== Number(capacity)) {
+    return next({
+      status: 400,
+      message: `capacity must be a number`,
+    });
+  }
+  //returns 400 if capacity is equal to zero
+  if (capacity === 0) {
+    return next({
+      status: 400,
+      message: `capacity must be greater than 0`,
+    });
+  }
+  next();
+}
+
+function hasTableCapacity(req, res, next) {
   const { people } = res.locals.reservation;
   const { capacity } = res.locals.table;
-  console.log(people, capacity);
+  if (people > capacity) {
+    return next({
+      status: 400,
+      message: `table does not have sufficient capacity`,
+    });
+  }
+  next();
+}
+
+function tableOccupied(req, res, next) {
+  const { reservation_id } = res.locals.table;
+  if (reservation_id) {
+    return next({
+      status: 400,
+      message: `table is occupied`,
+    });
+  }
+  next();
 }
 
 // Create handler for table resources
@@ -107,13 +143,16 @@ module.exports = {
   list: asyncErrorBoundary(list),
   create: [
     hasValidFields,
-    hasRequiredProperties,
+    hasValidCapacity,
     hasValidTableName,
     asyncErrorBoundary(create),
   ],
   update: [
     asyncErrorBoundary(hasRequiredUpdateProperties),
     asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(tableExists),
+    hasTableCapacity,
+    tableOccupied,
     asyncErrorBoundary(update),
   ],
 };
