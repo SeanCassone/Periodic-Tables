@@ -10,19 +10,6 @@ const VALID_FIELDS = [
   "people",
 ];
 
-async function reservationExists(req, res, next) {
-  const { reservation_id } = req.params;
-  const reservation = await service.read(reservation_id);
-  if (reservation) {
-    res.locals.reservation = reservation;
-    return next();
-  }
-  next({
-    status: 404,
-    message: `Reservation ${reservation_id} cannot be found.`,
-  });
-}
-
 async function hasValidFields(req, res, next) {
   const { data } = req.body;
   // returns 400 if data is missing
@@ -41,6 +28,19 @@ async function hasValidFields(req, res, next) {
       });
     }
   }
+  next();
+}
+
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  if (!reservation) {
+    return next({
+      status: 404,
+      message: `Reservation ${reservation_id} cannot be found.`,
+    });
+  }
+  res.locals.reservation = reservation;
   next();
 }
 
@@ -127,8 +127,8 @@ async function create(req, res) {
 }
 
 async function read(req, res, next) {
-  const { reservation } = res.locals;
-  res.status(200).json({ data: reservation });
+  const data = res.locals.reservation;
+  res.status(200).json({ data });
 }
 
 module.exports = {
