@@ -1,7 +1,7 @@
 const knex = require("../db/connection");
 const reservations = "reservations";
 
-async function list(reservation_date) {
+function list(reservation_date) {
   console.log(reservation_date);
   return knex(reservations)
     .where({ reservation_date })
