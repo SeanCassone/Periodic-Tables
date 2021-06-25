@@ -125,7 +125,7 @@ function hasValidNumberOfPeople(req, res, next) {
   next();
 }
 
-function hasBookedStatus(req, res, next) {
+function reservationHasBookedStatus(req, res, next) {
   const { status } = req.body.data;
   if (status === "seated" || status === "finished") {
     return next({
@@ -191,7 +191,7 @@ module.exports = {
     hasValidFieldsToCreateReservation,
     hasValidNumberOfPeople,
     hasValidDateTime,
-    hasBookedStatus,
+    reservationHasBookedStatus,
     asyncErrorBoundary(create),
   ],
 };
