@@ -1,5 +1,3 @@
-import { today } from "../utils/date-time";
-
 function Form({ reservation, handleChange, submitHandler, cancel }) {
   const {
     first_name,
@@ -26,7 +24,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
           />
         </div>
-        {/* Form input */}
+        {/* Form input First Name*/}
 
         <div className="col-md">
           <label htmlFor="last_name">Last Name</label>
@@ -42,7 +40,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
           />
         </div>
-        {/* Form input */}
+        {/* Form input Last Name */}
       </div>
       {/* Form Group */}
       <div className="row g-2">
@@ -53,14 +51,12 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             id="mobile_number"
             name="mobile_number"
             type="tel"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             required={true}
             value={mobile_number}
             placeholder="Mobile number"
             aria-label="Mobile number"
             onChange={handleChange}
           />
-          <small>Format: 123-456-7890</small>
         </div>
         {/* Form input */}
         <div className="col-md">
@@ -78,7 +74,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
           />
         </div>
-        {/* Form input */}
+        {/* Form input Number of people*/}
       </div>
       {/* Form Group */}
       <div className="row g-2">
@@ -95,10 +91,9 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             defaultValue={reservation_date}
             aria-label="Reservation date"
             onChange={handleChange}
-            min={today()}
           />
         </div>
-        {/* Form input */}
+        {/* Form input Reservation Date*/}
         <div className="col-md">
           <label htmlFor="reservation_time">Reservation Time</label>
           <input
@@ -109,14 +104,12 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             placeholder="HH:MM"
             pattern="[0-9]{2}:[0-9]{2}"
             required={true}
-            min="10:30"
-            max="21:30"
             defaultValue={reservation_time}
             aria-label="Reservation time"
             onChange={handleChange}
           />
         </div>
-        {/* Form input */}
+        {/* Form input Reservation Time*/}
       </div>
       {/* Form Group */}
       <div className="d-flex">

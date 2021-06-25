@@ -10,7 +10,7 @@ const VALID_FIELDS = [
   "people",
 ];
 
-async function hasValidFields(req, res, next) {
+function hasValidFields(req, res, next) {
   const { data } = req.body;
   // returns 400 if data is missing
   if (!data) {
@@ -31,8 +31,20 @@ async function hasValidFields(req, res, next) {
   next();
 }
 
-async function hasValidDateTime(req, res, next) {
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  if (!reservation) {
+    return next({
+      status: 404,
+      message: `Reservation ${reservation_id} cannot be found.`,
+    });
+  }
+  res.locals.reservation = reservation;
+  next();
+}
 
+function hasValidDateTime(req, res, next) {
   const { reservation_date, reservation_time } = req.body.data;
   // sets currentDate to today
   const currentDate = new Date();
@@ -40,16 +52,16 @@ async function hasValidDateTime(req, res, next) {
   const reservationDate = new Date(reservation_date + " " + reservation_time);
   // gets the day of the reservation as a number. Number 2 is equal to Tuesday
   const weekday = reservationDate.getDay();
-  // gets the reservation hour in UTC format
+  // gets the reservation hour
   const reservationHour = reservationDate.getHours();
-  // gets the reservation minutes in UTC format
+  // gets the reservation minutes
   const reservationMinutes = reservationDate.getMinutes();
   // formats the hours and minutes in this shape 00:00
   const reservationTime = `${reservationHour}:${reservationMinutes}`;
 
-
   // returns 400 if reservation_time is not a time that matches 00:00 format
-  if (!reservation_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
+  const regex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+  if (!reservation_time.match(regex)) {
     return next({
       status: 400,
       message: "reservation_time is not valid time.",
@@ -88,10 +100,10 @@ async function hasValidDateTime(req, res, next) {
   next();
 }
 
-async function hasValidNumberOfPeople(req, res, next) {
+function hasValidNumberOfPeople(req, res, next) {
   const { people } = req.body.data;
   // returns 400 if people is not a number or is less than or equal to zero
-  if (typeof people !== "number" || people <= 0) {
+  if (typeof people !== "number" || people < 1) {
     return next({
       status: 400,
       message: "number of people is not a valid number.",
@@ -115,12 +127,18 @@ async function create(req, res) {
   res.status(201).json({ data: newReservation });
 }
 
+function read(req, res, next) {
+  const data = res.locals.reservation;
+  res.status(200).json({ data: data });
+}
+
 module.exports = {
   list: asyncErrorBoundary(list),
+  read: [asyncErrorBoundary(reservationExists), read],
   create: [
-    asyncErrorBoundary(hasValidFields),
-    asyncErrorBoundary(hasValidNumberOfPeople),
-    asyncErrorBoundary(hasValidDateTime),
+    hasValidFields,
+    hasValidNumberOfPeople,
+    hasValidDateTime,
     asyncErrorBoundary(create),
   ],
 };
