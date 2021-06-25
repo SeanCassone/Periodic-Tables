@@ -10,7 +10,7 @@ const VALID_FIELDS = [
   "people",
 ];
 
-function hasValidFields(req, res, next) {
+function hasValidFieldsToCreateReservation(req, res, next) {
   const { data } = req.body;
   // returns 400 if data is missing
   if (!data) {
@@ -100,6 +100,19 @@ function hasValidDateTime(req, res, next) {
   next();
 }
 
+function hasValidReservationStatus(req, res, next) {
+  //check the status in the request
+  const { status } = req.body.data;
+  const validStatus = ["booked", "seated", "finished"];
+  if (!validStatus.includes(status)) {
+    return next({
+      status: 400,
+      message: `Status ${status} is not valid.`,
+    });
+  }
+  next();
+}
+
 function hasValidNumberOfPeople(req, res, next) {
   const { people } = req.body.data;
   // returns 400 if people is not a number or is less than or equal to zero
@@ -107,6 +120,29 @@ function hasValidNumberOfPeople(req, res, next) {
     return next({
       status: 400,
       message: "number of people is not a valid number.",
+    });
+  }
+  next();
+}
+
+function hasBookedStatus(req, res, next) {
+  const { status } = req.body.data;
+  if (status === "seated" || status === "finished") {
+    return next({
+      status: 400,
+      message: "Status must not be seated or finished.",
+    });
+  }
+  next();
+}
+
+function reservationHasFinishedStatus(req, res, next) {
+  //check the status in the reservation being updated
+  const { status } = res.locals.reservation;
+  if (status === "finished") {
+    return next({
+      status: 400,
+      message: `Status ${status} cannot be updated.`,
     });
   }
   next();
@@ -132,13 +168,30 @@ function read(req, res, next) {
   res.status(200).json({ data: data });
 }
 
+async function update(req, res) {
+  const { reservation_id } = req.params;
+  const updatedReservation = {
+    ...req.body.data,
+    reservation_id: reservation_id,
+  };
+  const updateStatus = await service.update(updatedReservation);
+  res.json({ data: updateStatus });
+}
+
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
+  update: [
+    asyncErrorBoundary(reservationExists),
+    reservationHasFinishedStatus,
+    hasValidReservationStatus,
+    asyncErrorBoundary(update),
+  ],
   create: [
-    hasValidFields,
+    hasValidFieldsToCreateReservation,
     hasValidNumberOfPeople,
     hasValidDateTime,
+    hasBookedStatus,
     asyncErrorBoundary(create),
   ],
 };
