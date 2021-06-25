@@ -118,6 +118,17 @@ function tableOccupied(req, res, next) {
   next();
 }
 
+function tableNotOccupied(req, res, next) {
+  const { reservation_id } = res.locals.table;
+  if (!reservation_id) {
+    return next({
+      status: 400,
+      message: `table is not occupied`,
+    });
+  }
+  next();
+}
+
 // Create handler for table resources
 async function create(req, res) {
   const newTable = await service.create(req.body.data);
@@ -131,6 +142,11 @@ async function update(req, res) {
     table_id: table_id,
   };
   const data = await service.update(updatedTable);
+  res.json({ data });
+}
+async function destroy(req, res) {
+  const { table_id } = req.params;
+  const data = await service.delete(table_id);
   res.json({ data });
 }
 
@@ -154,5 +170,10 @@ module.exports = {
     hasTableCapacity,
     tableOccupied,
     asyncErrorBoundary(update),
+  ],
+  delete: [
+    asyncErrorBoundary(tableExists),
+    tableNotOccupied,
+    asyncErrorBoundary(destroy),
   ],
 };

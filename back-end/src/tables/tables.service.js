@@ -24,4 +24,12 @@ function update(updatedTable) {
     .returning("*");
 }
 
-module.exports = { list, create, read, update };
+async function destroy(table_id) {
+  return knex(tables)
+    .select("*")
+    .where({ table_id: table_id })
+    .update("reservation_id", null)
+    .returning("*");
+}
+
+module.exports = { list, create, read, update, delete: destroy };

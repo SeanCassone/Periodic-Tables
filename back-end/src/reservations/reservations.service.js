@@ -2,7 +2,6 @@ const knex = require("../db/connection");
 const reservations = "reservations";
 
 function list(reservation_date) {
-  console.log(reservation_date);
   return knex(reservations)
     .where({ reservation_date })
     .orderBy("reservation_time", "asc");
