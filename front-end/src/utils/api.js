@@ -163,3 +163,24 @@ export async function updateTable(table_id, reservation_id, signal) {
   };
   return await fetchJson(url, options);
 }
+
+/**
+ * Deletes the table with the specified `table_id`.
+ * @param table_id
+ *  the id of the table to delete
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<Error|*>}
+ *  a promise that resolves to an empty object.
+ */
+export async function finishTable(table_id, signal) {
+  const url = `${API_BASE_URL}/tables/${table_id}/seat`;
+  const options = {
+    method: "DELETE",
+    headers,
+    body: JSON.stringify({ data: { table_id: table_id } }),
+
+    signal,
+  };
+  return await fetchJson(url, options);
+}
