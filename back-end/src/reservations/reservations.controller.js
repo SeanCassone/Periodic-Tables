@@ -33,6 +33,7 @@ function hasValidFieldsToCreateReservation(req, res, next) {
 
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.params;
+
   const reservation = await service.read(reservation_id);
   if (!reservation) {
     return next({
@@ -148,16 +149,17 @@ function reservationHasFinishedStatus(req, res, next) {
   next();
 }
 
-// List handler for reservation resources
+//Handlers for Reservation resources
+
 async function list(req, res) {
-  const { date } = req.query;
-  const reservationsByDate = await service.list(date);
-  res.json({
-    data: reservationsByDate,
-  });
+  const { date, mobile_number } = req.query;
+  if (date) {
+    res.json({ data: await service.list(date) });
+  } else if (mobile_number) {
+    res.json({ data: await service.search(mobile_number) });
+  }
 }
 
-// Create handler for reservation resources
 async function create(req, res) {
   const newReservation = await service.create(req.body.data);
   res.status(201).json({ data: newReservation });
