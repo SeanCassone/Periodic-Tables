@@ -4,6 +4,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 import useQuery from "../utils/useQuery";
 import ReservationList from "../Reservations/ReservationList";
 import TablesList from "../tables/TablesList";
+import ControlButtons from "./ControlButtons";
 
 /**
  * Defines the dashboard page.
@@ -38,6 +39,7 @@ function Dashboard({ date }) {
         <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
+      <ControlButtons date={date} />
       <ReservationList date={date} reservations={reservations} />
       <ErrorAlert error={tablesError} />
       <TablesList tables={tables} />
