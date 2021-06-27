@@ -1,6 +1,6 @@
 import ReservationTableBody from "./ReservationTableBody";
 
-function ReservationList({ date, reservations }) {
+function ReservationList({ reservations }) {
   const currentReservations = reservations.map((reservation) => {
     return (
       <ReservationTableBody
@@ -23,6 +23,8 @@ function ReservationList({ date, reservations }) {
             <th scope="col">Phone</th>
             <th scope="col">Party of</th>
             <th scope="col">Seating</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Cancel</th>
             <th scope="col">Status</th>
           </tr>
         </thead>

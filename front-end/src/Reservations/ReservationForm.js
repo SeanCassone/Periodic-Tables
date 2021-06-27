@@ -1,4 +1,12 @@
-function Form({ reservation, handleChange, submitHandler, cancel }) {
+function Form({ formData, handleChange, submitHandler, cancel }) {
+  const {
+    first_name,
+    last_name,
+    mobile_number,
+    reservation_date,
+    reservation_time,
+    people,
+  } = formData;
   return (
     <form onSubmit={submitHandler}>
       <div className="row g-2">
@@ -10,6 +18,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             type="text"
             required={true}
             onChange={handleChange}
+            defaultValue={first_name}
           />
         </div>
         {/* Form input First Name*/}
@@ -22,6 +31,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             type="text"
             required={true}
             onChange={handleChange}
+            defaultValue={last_name}
           />
         </div>
         {/* Form input Last Name */}
@@ -36,6 +46,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             type="tel"
             required={true}
             onChange={handleChange}
+            defaultValue={mobile_number}
           />
         </div>
         {/* Form input */}
@@ -47,6 +58,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             type="number"
             required={true}
             onChange={handleChange}
+            defaultValue={people}
           />
         </div>
         {/* Form input Number of people*/}
@@ -63,6 +75,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             pattern="\d{4}-\d{2}-\d{2}"
             required={true}
             onChange={handleChange}
+            defaultValue={reservation_date}
           />
         </div>
         {/* Form input Reservation Date*/}
@@ -76,6 +89,7 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
             pattern="[0-9]{2}:[0-9]{2}"
             required={true}
             onChange={handleChange}
+            defaultValue={reservation_time}
           />
         </div>
         {/* Form input Reservation Time*/}
