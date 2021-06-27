@@ -69,7 +69,7 @@ export async function listReservations(params, signal) {
 }
 
 /**
- * Retrieves all existing reservation.
+ * Retrieves all existing tables.
  * @returns {Promise<[tables]>}
  *  a promise that resolves to a possibly empty array of tables saved in the database.
  */
@@ -104,12 +104,11 @@ export async function createReservation(reservation, signal) {
 
 /**
  * Saves Table to the database.
- * There is no validation done on the deck object, any object will be saved.
  * @param table
- *  the table to save, which must not have an `table_id` property and references the reservation_id
+ *  the table to save, which must not have an `table_id`
  * @param signal
  *  optional AbortController.signal
- * @returns {Promise<reservation>}
+ * @returns {Promise<table>}
  *  a promise that resolves the saved table, which will now have an `table_id` property.
  */
 
@@ -159,6 +158,48 @@ export async function updateTable(table_id, reservation_id, signal) {
     method: "PUT",
     headers,
     body: JSON.stringify({ data: { reservation_id: reservation_id } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+/**
+ * Updates an existing reservations status
+ * @param status
+ *   the `status` property to update the reservation matching the `reservation_id`.
+ * @param reservation_id
+ *  the `reservation_id` property matching the desired reservation.
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<Error|*>}
+ *  a promise that resolves to the updated table.
+ */
+export async function updateStatus(status, reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}/status`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { status: status } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+/**
+ * Updates an existing reservation
+ * @param updatedReservation
+ *  the updated reservation to PUT.
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<Error|*>}
+ *  a promise that resolves to the updated table.
+ */
+export async function updateReservation(updatedReservation, signal) {
+  const url = `${API_BASE_URL}/reservations/${updatedReservation.reservation_id}`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: updatedReservation }),
     signal,
   };
   return await fetchJson(url, options);

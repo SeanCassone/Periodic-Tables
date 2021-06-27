@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { listReservations } from "../utils/api";
-import ReservationList from "./ReservationList";
+import ReservationTable from "./ReservationTable";
 import ErrorAlert from "../layout/ErrorAlert";
 
 function SearchByMobile() {
@@ -49,7 +49,7 @@ function SearchByMobile() {
         </div>
       </form>
       {reservations.length ? (
-        <ReservationList reservations={reservations} />
+        <ReservationTable reservations={reservations} />
       ) : (
         <h4>No reservations found</h4>
       )}

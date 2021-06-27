@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import useQuery from "../utils/useQuery";
-import ReservationList from "../Reservations/ReservationList";
+import ReservationTable from "../Reservations/ReservationTable";
 import TablesList from "../tables/TablesList";
 import ControlButtons from "./ControlButtons";
 
@@ -35,14 +35,15 @@ function Dashboard({ date }) {
   return (
     <main>
       <h1>Dashboard</h1>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for: {date}</h4>
+      <div>
+        <h4>Reservations for: {date}</h4>
+        <ErrorAlert error={reservationsError} />
+        <ControlButtons date={date} />
+        <ReservationTable date={date} reservations={reservations} />
+        <h4>Tables</h4>
+        <ErrorAlert error={tablesError} />
+        <TablesList tables={tables} />
       </div>
-      <ErrorAlert error={reservationsError} />
-      <ControlButtons date={date} />
-      <ReservationList date={date} reservations={reservations} />
-      <ErrorAlert error={tablesError} />
-      <TablesList tables={tables} />
     </main>
   );
 }

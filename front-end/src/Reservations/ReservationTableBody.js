@@ -1,5 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { updateStatus } from "../utils/api";
+
 function ReservationTableBody({ reservation }) {
+  const history = useHistory();
+
+  function cancelReservation() {
+    const abortController = new AbortController();
+    const result = window.confirm(
+      "Do you want to cancel this reservation? This cannot be undone."
+    );
+    if (result) {
+      const status = "cancelled";
+      updateStatus(
+        status,
+        reservation.reservation_id,
+        abortController.signal
+      ).then(() => {
+        history.push("/");
+      });
+    }
+  }
+
   return (
     <tbody key={reservation.reservation_id}>
       <tr>
@@ -13,12 +34,29 @@ function ReservationTableBody({ reservation }) {
         <td className="text-center">
           {reservation.status === "booked" && (
             <Link
-              className="btn btn-primary ml-1 mt-2"
+              className="btn btn-info ml-1"
               to={`/reservations/${reservation.reservation_id}/seat`}
             >
               Seat
             </Link>
           )}
+        </td>
+        <td className="text-center">
+          <Link
+            className="btn btn-info ml-1"
+            to={`/reservations/${reservation.reservation_id}/edit`}
+          >
+            Edit
+          </Link>
+        </td>
+        <td>
+          <button
+            onClick={cancelReservation}
+            className="btn btn-info"
+            data-reservation-id-cancel={reservation.reservation_id}
+          >
+            Cancel
+          </button>
         </td>
         <td data-reservation-id-status={reservation.reservation_id}>
           {reservation.status}
@@ -27,4 +65,5 @@ function ReservationTableBody({ reservation }) {
     </tbody>
   );
 }
+
 export default ReservationTableBody;

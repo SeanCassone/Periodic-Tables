@@ -1,12 +1,12 @@
-function Form({ reservation, handleChange, submitHandler, cancel }) {
+function Form({ formData, handleChange, submitHandler, cancel }) {
   const {
     first_name,
     last_name,
     mobile_number,
     reservation_date,
     reservation_time,
-  } = reservation;
-
+    people,
+  } = formData;
   return (
     <form onSubmit={submitHandler}>
       <div className="row g-2">
@@ -14,14 +14,11 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="first_name">First Name</label>
           <input
             className="form-control"
-            id="first_name"
             name="first_name"
             type="text"
             required={true}
-            value={first_name}
-            placeholder="First name"
-            aria-label="First name"
             onChange={handleChange}
+            defaultValue={first_name}
           />
         </div>
         {/* Form input First Name*/}
@@ -30,14 +27,11 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="last_name">Last Name</label>
           <input
             className="form-control"
-            id="last_name"
             name="last_name"
             type="text"
             required={true}
-            value={last_name}
-            placeholder="Last name"
-            aria-label="Last name"
             onChange={handleChange}
+            defaultValue={last_name}
           />
         </div>
         {/* Form input Last Name */}
@@ -48,14 +42,11 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="last_name">Mobile number</label>
           <input
             className="form-control"
-            id="mobile_number"
             name="mobile_number"
             type="tel"
             required={true}
-            value={mobile_number}
-            placeholder="Mobile number"
-            aria-label="Mobile number"
             onChange={handleChange}
+            defaultValue={mobile_number}
           />
         </div>
         {/* Form input */}
@@ -63,15 +54,11 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="people">Number of people</label>
           <input
             className="form-control"
-            id="people"
             name="people"
             type="number"
             required={true}
-            placeholder="Number of people"
-            aria-label="Number of people"
-            min="1"
-            max="50"
             onChange={handleChange}
+            defaultValue={people}
           />
         </div>
         {/* Form input Number of people*/}
@@ -82,15 +69,13 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="reservation_date">Reservation Date</label>
           <input
             className="form-control"
-            id="reservation_date"
             name="reservation_date"
             type="date"
             placeholder="YYYY-MM-DD"
             pattern="\d{4}-\d{2}-\d{2}"
             required={true}
-            defaultValue={reservation_date}
-            aria-label="Reservation date"
             onChange={handleChange}
+            defaultValue={reservation_date}
           />
         </div>
         {/* Form input Reservation Date*/}
@@ -98,15 +83,13 @@ function Form({ reservation, handleChange, submitHandler, cancel }) {
           <label htmlFor="reservation_time">Reservation Time</label>
           <input
             className="form-control"
-            id="reservation_time"
             name="reservation_time"
             type="time"
             placeholder="HH:MM"
             pattern="[0-9]{2}:[0-9]{2}"
             required={true}
-            defaultValue={reservation_time}
-            aria-label="Reservation time"
             onChange={handleChange}
+            defaultValue={reservation_time}
           />
         </div>
         {/* Form input Reservation Time*/}
