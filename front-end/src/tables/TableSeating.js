@@ -14,7 +14,7 @@ function TableSeating() {
 
   const [formData, setFormData] = useState({ table_id: "" });
   const [reservation, setReservation] = useState({});
-  const [table, setTable] = useState([]);
+  const [tables, setTables] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -24,24 +24,20 @@ function TableSeating() {
       readReservation(reservation_id, abortController.signal)
         .then(setReservation)
         .catch(setError);
-      listTables(abortController.signal).then(setTable).catch(setError);
+      listTables(abortController.signal).then(setTables).catch(setError);
       return () => abortController.abort();
     }
     loadTables();
   }, [reservation_id]);
 
-  const openTables = table.filter(
+  const openTables = tables.filter(
     (table) =>
       table.reservation_id === null && table.capacity >= reservation.people
   );
 
   const listOptionForOpenTables = openTables.map((table) => {
     return (
-      <option
-        key={table.table_id}
-        name={table.table_name}
-        value={table.table_id}
-      >
+      <option key={table.table_id} name={table.name} value={table.table_id}>
         {table.table_name} - {table.capacity}
       </option>
     );
@@ -84,6 +80,7 @@ function TableSeating() {
               name="table_id"
               id="table_id"
               onChange={handleChange}
+              value="table_id"
             >
               <option value="x">Choose a table...</option>
               {listOptionForOpenTables}
