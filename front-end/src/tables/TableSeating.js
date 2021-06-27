@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { readReservation, listTables, updateTable } from "../utils/api";
+import {
+  readReservation,
+  listTables,
+  updateTable,
+  updateStatus,
+} from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
+
 function TableSeating() {
   const history = useHistory();
   const { reservation_id } = useParams();
@@ -45,6 +51,8 @@ function TableSeating() {
     event.preventDefault();
     if (formData.table_id !== "x") {
       const abortController = new AbortController();
+      const status = "seated";
+      updateStatus(status, reservation_id, abortController.signal);
       updateTable(
         formData.table_id,
         reservation.reservation_id,
@@ -63,35 +71,29 @@ function TableSeating() {
       <ErrorAlert error={error} />
       <div className="card mt-3">
         <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="form-input-group">
-              <label className="input-group-text" htmlFor="table_id">
-                Open tables
-              </label>
-              <select
-                className="custom-select"
-                id="table_id"
-                name="table_id"
-                onChange={handleChange}
-              >
-                <option value="x">Choose a table...</option>
-                {listOptionForOpenTables}
-              </select>
-            </div>
-            {/* Form Group */}
-            <div className="d-flex">
-              <button type="submit" className="btn btn-primary ml-1 mt-2">
-                Submit
-              </button>
-              <button
-                type="submit"
-                className="btn btn-danger ml-1 mt-2"
-                onClick={cancel}
-              >
-                Cancel
-              </button>
-            </div>
-            {/* Button Group */}
+          <form className="form-inline" onSubmit={handleSubmit}>
+            <label className="my-1 mr-2" htmlFor="table_id">
+              Preference
+            </label>
+            <select
+              className="custom-select my-1 mr-sm-2"
+              name="table_id"
+              id="table_id"
+              onChange={handleChange}
+            >
+              <option selected>Choose...</option>
+              {listOptionForOpenTables}
+            </select>
+            <button type="submit" className="btn btn-primary my-1">
+              Submit
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary ml-2"
+              onClick={cancel}
+            >
+              Cancel
+            </button>
           </form>
         </div>
         {/* Card Body */}

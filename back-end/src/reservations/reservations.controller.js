@@ -159,13 +159,11 @@ async function list(req, res) {
 }
 
 async function create(req, res) {
-  const newReservation = await service.create(req.body.data);
-  res.status(201).json({ data: newReservation });
+  res.status(201).json({ data: await service.create(req.body.data) });
 }
 
 function read(req, res, next) {
-  const data = res.locals.reservation;
-  res.status(200).json({ data: data });
+  res.status(200).json({ data: res.locals.reservation });
 }
 
 async function updateStatus(req, res) {
@@ -174,8 +172,7 @@ async function updateStatus(req, res) {
     ...req.body.data,
     reservation_id: reservation_id,
   };
-  const updateStatus = await service.update(updatedReservation);
-  res.json({ data: updateStatus });
+  res.json({ data: await service.update(updatedReservation) });
 }
 
 async function updateReservation(req, res) {
@@ -184,8 +181,7 @@ async function updateReservation(req, res) {
     ...req.body.data,
     reservation_id: reservation_id,
   };
-  const updateRes = await service.update(updatedReservation);
-  res.json({ data: updateRes });
+  res.json({ data: await service.update(updatedReservation) });
 }
 
 module.exports = {
