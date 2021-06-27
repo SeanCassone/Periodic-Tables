@@ -1,6 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
-
 import { updateStatus } from "../utils/api";
+
 function ReservationTableBody({ reservation }) {
   const history = useHistory();
 
@@ -34,7 +34,7 @@ function ReservationTableBody({ reservation }) {
         <td className="text-center">
           {reservation.status === "booked" && (
             <Link
-              className="btn btn-primary ml-1"
+              className="btn btn-info ml-1"
               to={`/reservations/${reservation.reservation_id}/seat`}
             >
               Seat
@@ -43,16 +43,16 @@ function ReservationTableBody({ reservation }) {
         </td>
         <td className="text-center">
           <Link
-            className="btn btn-primary ml-1"
+            className="btn btn-info ml-1"
             to={`/reservations/${reservation.reservation_id}/edit`}
           >
-            Seat
+            Edit
           </Link>
         </td>
         <td>
           <button
             onClick={cancelReservation}
-            className="btn btn-primary"
+            className="btn btn-info"
             data-reservation-id-cancel={reservation.reservation_id}
           >
             Cancel
@@ -65,4 +65,5 @@ function ReservationTableBody({ reservation }) {
     </tbody>
   );
 }
+
 export default ReservationTableBody;
