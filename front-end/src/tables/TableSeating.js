@@ -37,14 +37,18 @@ function TableSeating() {
 
   const listOptionForOpenTables = openTables.map((table) => {
     return (
-      <option key={table.table_id} value={table.table_id}>
+      <option
+        key={table.table_id}
+        name={table.table_name}
+        value={table.table_id}
+      >
         {table.table_name} - {table.capacity}
       </option>
     );
   });
 
-  function handleChange({ target: { name, value } }) {
-    setFormData({ [name]: value });
+  function handleChange({ target }) {
+    setFormData({ [target.name]: target.value });
   }
 
   function handleSubmit(event) {
@@ -73,15 +77,15 @@ function TableSeating() {
         <div className="card-body">
           <form className="form-inline" onSubmit={handleSubmit}>
             <label className="my-1 mr-2" htmlFor="table_id">
-              Preference
+              Select Table
             </label>
             <select
-              className="custom-select my-1 mr-sm-2"
+              className="input-group-text my-1 mr-sm-2"
               name="table_id"
               id="table_id"
               onChange={handleChange}
             >
-              <option selected>Choose...</option>
+              <option value="x">Choose a table...</option>
               {listOptionForOpenTables}
             </select>
             <button type="submit" className="btn btn-primary my-1">
