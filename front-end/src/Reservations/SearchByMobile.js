@@ -25,35 +25,40 @@ function SearchByMobile() {
   }
 
   return (
-    <div>
+    <>
       <ErrorAlert error={searchError} />
-      <h4 className="mt-3">Search by mobile number.</h4>
-      <form className="my-3" onSubmit={submitHandler}>
-        <div className="input-group">
-          <button
-            type="submit"
-            className="btn btn-primary active ml-1 input-group-text"
-            htmlFor="mobile_number"
-          >
-            Find
-          </button>
-          <input
-            name="mobile_number"
-            className="form-control"
-            id="mobile_number"
-            type="tel"
-            placeholder="Enter a customer's phone number"
-            required={true}
-            onChange={handleChange}
-          />
+      <div className="card mt-3 mx-auto" style={{ width: "25rem" }}>
+        <div className="card-body text-white bg-secondary">
+          <h5 className="card-title text-center">Search by mobile number.</h5>
+          <form onSubmit={submitHandler}>
+            <input
+              name="mobile_number"
+              className="form-control"
+              id="mobile_number"
+              type="tel"
+              placeholder="Enter a customer's phone number"
+              required={true}
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              className="btn btn-primary active mt-2"
+              htmlFor="mobile_number"
+            >
+              <i className="bi bi-search mr-2" />
+              Find
+            </button>
+          </form>
         </div>
-      </form>
-      {reservations.length ? (
-        <ReservationTable reservations={reservations} />
-      ) : (
-        <h4>No reservations found</h4>
-      )}
-    </div>
+      </div>
+      <div>
+        {reservations.length ? (
+          <ReservationTable reservations={reservations} />
+        ) : (
+          <h6 className="text-center">No reservations found</h6>
+        )}
+      </div>
+    </>
   );
 }
 

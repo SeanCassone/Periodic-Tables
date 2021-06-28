@@ -75,7 +75,9 @@ function CreateEditReservation() {
 
   return (
     <div className="conatiner">
-      <h4>{reservation_id ? `Edit reservation` : `Make reservation`}</h4>
+      <h4 className="mt-3">
+        {reservation_id ? `Edit reservation` : `Make reservation`}
+      </h4>
       <ErrorAlert error={error} />
       <ReservationForm
         submitHandler={submitHandler}

@@ -20,7 +20,14 @@ function TablesList({ tables }) {
 
   const tablesTableBody = tables.map((table) => {
     return (
-      <tbody key={table.table_id}>
+      <tbody
+        className={
+          table.reservation_id
+            ? "bg-warning text-center"
+            : "bg-success text-center"
+        }
+        key={table.table_id}
+      >
         <tr>
           <th scope="row">{table.table_id}</th>
           <td>{table.reservation_id}</td>
@@ -35,12 +42,13 @@ function TablesList({ tables }) {
           <td>
             {table.reservation_id && (
               <button
-                className="btn btn-primary ml-1 mt-2"
+                className="btn btn-danger ml-1"
                 id={table.table_id}
                 data-table-id-finish={table.table_id}
                 value={table.reservation_id}
                 onClick={handleFinishTable}
               >
+                <i className="bi bi-trash2 mr-2" />
                 Finish
               </button>
             )}
@@ -50,20 +58,23 @@ function TablesList({ tables }) {
     );
   });
   return (
-    <div>
-      <table className="table table-hover table-responsive">
-        <thead className="thead-light">
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Res. ID</th>
-            <th scope="col">Table Name</th>
-            <th scope="col">Capacity</th>
-            <th scope="col">Status</th>
-            <th scope="col">Finish</th>
-          </tr>
-        </thead>
-        {tablesTableBody}
-      </table>
+    <div className="row justify-content-center">
+      <div className="col-auto">
+        <table className="table table-hover table-responsive">
+          <thead className="thead-dark text-center">
+            <tr>
+              <th scope="col">Table Id</th>
+              <th scope="col">Reservation Id</th>
+              <th scope="col">Table Name</th>
+              <th scope="col">Capacity</th>
+              <th scope="col">Status</th>
+              <th scope="col">Finish</th>
+            </tr>
+          </thead>
+
+          {tablesTableBody}
+        </table>
+      </div>
     </div>
   );
 }

@@ -38,13 +38,13 @@ function CreateTableForReservation(params) {
   return (
     <div>
       <ErrorAlert error={tablesError} />
-      <div className="card mt-3">
-        <div className="card-body">
+      <div className="card mt-3" style={{ width: "25rem" }}>
+        <div className="card-body text-white bg-secondary">
           <h5 className="card-title">Create New Table</h5>
           <form className="mb-3" onSubmit={submitHandler}>
             <div className="input-group mb-3">
               <label className="input-group-text" htmlFor="table_name">
-                Table Name
+                Name
               </label>
               <input
                 className="form-control"
@@ -79,14 +79,16 @@ function CreateTableForReservation(params) {
             </div>
             {/* Form Group */}
             <div className="d-flex">
-              <button type="submit" className="btn btn-primary ml-1 mt-2">
+              <button type="submit" className="btn btn-primary mt-1">
+                <i className="bi bi-file-plus mr-2" />
                 Submit
               </button>
               <button
                 type="submit"
-                className="btn btn-danger ml-1 mt-2"
+                className="btn btn-danger ml-2 mt-1"
                 onClick={cancel}
               >
+                <i className="bi bi-trash2 mr-2"></i>
                 Cancel
               </button>
             </div>

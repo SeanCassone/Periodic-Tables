@@ -18,15 +18,23 @@ function ControlButtons({ date }) {
       className="btn-group btn-group-lg btn-block"
       aria-label="Today next and previous day buttons"
     >
-      <button type="submit" className="btn btn-info" onClick={handleTodaysDate}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleTodaysDate}
+      >
         Today
       </button>
-      <button type="submit" className="btn btn-info" onClick={handleNextDate}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleNextDate}
+      >
         Next
       </button>
       <button
         type="submit"
-        className="btn btn-info"
+        className="btn btn-primary"
         onClick={handlePreviousDate}
       >
         Previous

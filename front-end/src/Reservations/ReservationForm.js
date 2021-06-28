@@ -97,6 +97,7 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
       {/* Form Group */}
       <div className="d-flex">
         <button type="submit" className="btn btn-primary ml-1 mt-2">
+          <i className="bi bi-person-plus mr-2" />
           Submit
         </button>
         <button
@@ -104,6 +105,7 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
           className="btn btn-danger ml-1 mt-2"
           onClick={cancel}
         >
+          <i className="bi bi-trash2 mr-2" />
           Cancel
         </button>
       </div>

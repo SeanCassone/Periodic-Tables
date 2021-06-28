@@ -34,13 +34,13 @@ function Dashboard({ date }) {
 
   return (
     <main>
-      <h1>Dashboard</h1>
-      <div>
-        <h4>Reservations for: {date}</h4>
+      <h1 className="text-center">Dashboard</h1>
+      <div className="container">
         <ErrorAlert error={reservationsError} />
+        <h4 className="text-center">Reservations for: {date}</h4>
         <ControlButtons date={date} />
         <ReservationTable date={date} reservations={reservations} />
-        <h4>Tables</h4>
+        <h4 className="text-center">Tables</h4>
         <ErrorAlert error={tablesError} />
         <TablesList tables={tables} />
       </div>
