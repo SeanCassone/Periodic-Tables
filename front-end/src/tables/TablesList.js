@@ -24,7 +24,7 @@ function TablesList({ tables }) {
         className={
           table.reservation_id
             ? "bg-warning text-center"
-            : "bg-success text-center"
+            : "bg-success text-white text-center"
         }
         key={table.table_id}
       >
