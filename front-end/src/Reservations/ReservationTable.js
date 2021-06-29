@@ -19,13 +19,14 @@ function ReservationList({ reservations }) {
               <th scope="col">Id</th>
               <th scope="col">Date</th>
               <th scope="col">Time</th>
-              <th scope="col">Name</th>
+              <th scope="col">First name</th>
+              <th scope="col">Last Name</th>
               <th scope="col">Phone</th>
               <th scope="col">Party of</th>
-              <th scope="col"></th>
               <th scope="col">Edit</th>
               <th scope="col">Cancel</th>
               <th scope="col">Status</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           {reservations.length ? currentReservations : null}

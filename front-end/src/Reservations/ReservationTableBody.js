@@ -38,17 +38,7 @@ function ReservationTableBody({ reservation }) {
         <td>{reservation.last_name}</td>
         <td>{reservation.mobile_number}</td>
         <td>{reservation.people}</td>
-        <td className="text-center">
-          {reservation.status === "booked" && (
-            <Link
-              className="btn btn-success ml-1"
-              to={`/reservations/${reservation.reservation_id}/seat`}
-            >
-              <i className="bi bi-person-plus" />
-              &nbsp;Seat
-            </Link>
-          )}
-        </td>
+
         <td className="text-center">
           <Link
             className="btn btn-warning"
@@ -70,6 +60,17 @@ function ReservationTableBody({ reservation }) {
         </td>
         <td data-reservation-id-status={reservation.reservation_id}>
           {reservation.status}
+        </td>
+        <td className="text-center">
+          {reservation.status === "booked" && (
+            <Link
+              className="btn btn-success ml-1"
+              to={`/reservations/${reservation.reservation_id}/seat`}
+            >
+              <i className="bi bi-person-plus" />
+              &nbsp;Seat
+            </Link>
+          )}
         </td>
       </tr>
     </tbody>
