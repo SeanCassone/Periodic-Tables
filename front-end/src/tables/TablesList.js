@@ -48,8 +48,8 @@ function TablesList({ tables }) {
                 value={table.reservation_id}
                 onClick={handleFinishTable}
               >
-                <i className="bi bi-trash2 mr-2" />
-                Finish
+                <i className="bi bi-trash2" />
+                &nbsp;Finish
               </button>
             )}
           </td>
@@ -60,7 +60,7 @@ function TablesList({ tables }) {
   return (
     <div className="row justify-content-center">
       <div className="col-auto">
-        <table className="table table-hover table-responsive">
+        <table className="table table-sm table-hover table-responsive">
           <thead className="thead-dark text-center">
             <tr>
               <th scope="col">Table Id</th>
@@ -68,7 +68,7 @@ function TablesList({ tables }) {
               <th scope="col">Table Name</th>
               <th scope="col">Capacity</th>
               <th scope="col">Status</th>
-              <th scope="col">Finish</th>
+              <th scope="col"></th>
             </tr>
           </thead>
 

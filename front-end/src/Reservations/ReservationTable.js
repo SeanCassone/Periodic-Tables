@@ -13,7 +13,7 @@ function ReservationList({ reservations }) {
   return (
     <div className="row justify-content-center">
       <div className="col-auto">
-        <table className="table table-hover table-responsive mt-2">
+        <table className="table table-sm table-hover table-responsive mt-2">
           <thead className="thead-dark text-center">
             <tr>
               <th scope="col">Id</th>

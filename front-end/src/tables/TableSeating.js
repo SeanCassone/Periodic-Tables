@@ -85,7 +85,7 @@ function TableSeating() {
               {listOptionForOpenTables}
             </select>
             <button type="submit" className="btn btn-primary my-1">
-              Submit
+              &nbsp;Submit
             </button>
             <button
               type="button"

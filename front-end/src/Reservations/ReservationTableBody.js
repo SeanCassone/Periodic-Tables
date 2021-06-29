@@ -45,8 +45,8 @@ function ReservationTableBody({ reservation }) {
               className="btn btn-success ml-1"
               to={`/reservations/${reservation.reservation_id}/seat`}
             >
-              <i className="bi bi-person-plus mr-2" />
-              Seat
+              <i className="bi bi-person-plus" />
+              &nbsp;Seat
             </Link>
           )}
         </td>
@@ -55,8 +55,8 @@ function ReservationTableBody({ reservation }) {
             className="btn btn-warning"
             to={`/reservations/${reservation.reservation_id}/edit`}
           >
-            <i className="bi bi-pencil-square mr-2" />
-            Edit
+            <i className="bi bi-pencil-square" />
+            &nbsp;Edit
           </Link>
         </td>
         <td>
@@ -65,8 +65,8 @@ function ReservationTableBody({ reservation }) {
             className="btn btn-danger"
             data-reservation-id-cancel={reservation.reservation_id}
           >
-            <i className="bi bi-trash2 mr-2" />
-            Cancel
+            <i className="bi bi-trash2" />
+            &nbsp;Cancel
           </button>
         </td>
         <td data-reservation-id-status={reservation.reservation_id}>

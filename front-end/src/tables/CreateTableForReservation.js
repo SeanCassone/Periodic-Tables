@@ -80,16 +80,16 @@ function CreateTableForReservation(params) {
             {/* Form Group */}
             <div className="d-flex">
               <button type="submit" className="btn btn-primary mt-1">
-                <i className="bi bi-file-plus mr-2" />
-                Submit
+                <i className="bi bi-file-plus" />
+                &nbsp;Submit
               </button>
               <button
                 type="submit"
                 className="btn btn-danger ml-2 mt-1"
                 onClick={cancel}
               >
-                <i className="bi bi-trash2 mr-2"></i>
-                Cancel
+                <i className="bi bi-trash2"></i>
+                &nbsp;Cancel
               </button>
             </div>
             {/* Button Group */}
