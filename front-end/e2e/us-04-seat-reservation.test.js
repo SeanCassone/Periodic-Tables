@@ -198,7 +198,7 @@ describe("US-04 - Seat reservation - E2E", () => {
       expect(page).toMatch(/occupied/i);
     });
 
-    test.skip("cannot seat reservation at Bar #1", async () => {
+    test("cannot seat reservation at Bar #1", async () => {
       await page.waitForSelector('option:not([value=""])');
 
       await page.screenshot({

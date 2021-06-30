@@ -52,14 +52,19 @@ function TableSeating() {
     if (formData.table_id !== "x") {
       const abortController = new AbortController();
       const status = "seated";
-      updateStatus(status, reservation_id, abortController.signal);
+
       updateTable(
         formData.table_id,
         reservation.reservation_id,
         abortController.signal
-      ).then(() => {
-        history.push("/dashboard");
-      });
+      )
+        .then(() => {
+          updateStatus(status, reservation_id, abortController.signal);
+        })
+        .then(() => {
+          history.push("/dashboard");
+        })
+        .catch(setError);
     }
   }
 
