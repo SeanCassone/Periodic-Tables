@@ -64,7 +64,7 @@ function TablesList({ tables }) {
           <thead className="thead-dark text-center">
             <tr>
               <th scope="col">Table Id</th>
-              <th scope="col">Reservation Id</th>
+              <th scope="col">Res. Id</th>
               <th scope="col">Table Name</th>
               <th scope="col">Capacity</th>
               <th scope="col">Status</th>
