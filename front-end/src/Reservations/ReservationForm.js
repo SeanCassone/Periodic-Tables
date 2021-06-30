@@ -8,7 +8,7 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
     people,
   } = formData;
   return (
-    <form onSubmit={submitHandler}>
+    <form className="was-validated" noValidate onSubmit={submitHandler}>
       <div className="row g-2">
         <div className="col-md">
           <label htmlFor="first_name">First Name</label>
@@ -20,6 +20,9 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={first_name}
           />
+          <div className="invalid-feedback">
+            Please provide a valid first name.
+          </div>
         </div>
         {/* Form input First Name*/}
 
@@ -33,13 +36,16 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={last_name}
           />
+          <div className="invalid-feedback">
+            Please provide a valid last name.
+          </div>
         </div>
         {/* Form input Last Name */}
       </div>
       {/* Form Group */}
       <div className="row g-2">
         <div className="col-md">
-          <label htmlFor="last_name">Mobile number</label>
+          <label htmlFor="mobile_number">Mobile number</label>
           <input
             className="form-control"
             name="mobile_number"
@@ -48,6 +54,9 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={mobile_number}
           />
+          <small className="invalid-feedback">
+            Please provide a valid mobile number.
+          </small>
         </div>
         {/* Form input */}
         <div className="col-md">
@@ -60,11 +69,12 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={people}
           />
+          <div className="invalid-feedback">
+            Number of people must be at least 1.
+          </div>
         </div>
         {/* Form input Number of people*/}
-      </div>
-      {/* Form Group */}
-      <div className="row g-2">
+
         <div className="col-md">
           <label htmlFor="reservation_date">Reservation Date</label>
           <input
@@ -77,6 +87,12 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={reservation_date}
           />
+          <div className="invalid-feedback">
+            Only future reservations are allowed.
+          </div>
+          <div className="invalid-feedback">
+            The restaurant is closed on Tuesdays.
+          </div>
         </div>
         {/* Form input Reservation Date*/}
         <div className="col-md">
@@ -91,22 +107,25 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             onChange={handleChange}
             defaultValue={reservation_time}
           />
+          <div className="invalid-feedback">
+            The reservation time must be between 10:30AM and 9:30PM.
+          </div>
         </div>
         {/* Form input Reservation Time*/}
       </div>
       {/* Form Group */}
       <div className="d-flex">
         <button type="submit" className="btn btn-primary ml-1 mt-2">
-          <i className="bi bi-person-plus mr-2" />
-          Submit
+          <span className="oi oi-plus" />
+          &nbsp;Submit
         </button>
         <button
           type="submit"
           className="btn btn-danger ml-1 mt-2"
           onClick={cancel}
         >
-          <i className="bi bi-trash2 mr-2" />
-          Cancel
+          <span className="oi oi-trash" />
+          &nbsp;Cancel
         </button>
       </div>
       {/* Button Group */}

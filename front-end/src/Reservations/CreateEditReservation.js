@@ -9,15 +9,14 @@ import ErrorAlert from "../layout/ErrorAlert";
 import ReservationForm from "./ReservationForm";
 import formatReservationDate from "../utils/format-reservation-date";
 import formatReservationTime from "../utils/format-reservation-time";
-import { today } from "../utils/date-time";
 
 const DEFAULT_RESERVATION_STATE = {
   first_name: "",
   last_name: "",
   mobile_number: "",
-  reservation_date: today(),
+  reservation_date: "",
   reservation_time: "",
-  people: 1,
+  people: "",
   status: "booked",
 };
 
