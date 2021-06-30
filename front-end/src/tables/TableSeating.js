@@ -78,7 +78,7 @@ function TableSeating() {
         <div className="card-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label for="exampleFormControlSelect1">Table:</label>
+              <label htmlFor="exampleFormControlSelect1">Table:</label>
               <select
                 className="form-control"
                 name="table_id"
