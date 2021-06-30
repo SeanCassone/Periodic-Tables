@@ -1,14 +1,16 @@
 import ReservationTableBody from "./ReservationTableBody";
 
 function ReservationList({ reservations }) {
-  const currentReservations = reservations.map((reservation) => {
-    return (
-      <ReservationTableBody
-        reservation={reservation}
-        key={reservation.reservation_id}
-      />
-    );
-  });
+  const currentReservations = reservations
+    .filter((reservation) => reservation.status !== "cancelled")
+    .map((reservation) => {
+      return (
+        <ReservationTableBody
+          reservation={reservation}
+          key={reservation.reservation_id}
+        />
+      );
+    });
 
   return (
     <div className="row justify-content-center">
