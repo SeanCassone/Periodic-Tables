@@ -39,10 +39,12 @@ function ReservationTableBody({ reservation }) {
         <td>{reservation.last_name}</td>
         <td>{reservation.mobile_number}</td>
         <td>{reservation.people}</td>
-
+        <td data-reservation-id-status={reservation.reservation_id}>
+          {reservation.status}
+        </td>
         <td className="text-center">
           <Link
-            className="btn btn-warning"
+            className="btn btn-warning ml-1"
             to={`/reservations/${reservation.reservation_id}/edit`}
           >
             <i className="bi bi-pencil-square" />
@@ -52,16 +54,14 @@ function ReservationTableBody({ reservation }) {
         <td>
           <button
             onClick={cancelReservation}
-            className="btn btn-danger"
+            className="btn btn-danger ml-1"
             data-reservation-id-cancel={reservation.reservation_id}
           >
             <i className="bi bi-trash2" />
             &nbsp;Cancel
           </button>
         </td>
-        <td data-reservation-id-status={reservation.reservation_id}>
-          {reservation.status}
-        </td>
+
         <td className="text-center">
           {reservation.status === "booked" && (
             <Link
