@@ -14,6 +14,7 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
           <label htmlFor="first_name">First Name</label>
           <input
             className="form-control"
+            id="first_name"
             name="first_name"
             type="text"
             required={true}
