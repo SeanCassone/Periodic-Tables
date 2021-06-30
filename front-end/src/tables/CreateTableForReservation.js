@@ -38,7 +38,7 @@ function CreateTableForReservation(params) {
   return (
     <div>
       <ErrorAlert error={tablesError} />
-      <div className="card mt-3" style={{ width: "25rem" }}>
+      <div className="card mt-3 mx-auto" style={{ width: "25rem" }}>
         <div className="card-body text-white bg-secondary">
           <h5 className="card-title">Create New Table</h5>
           <form className="mb-3" onSubmit={submitHandler}>
