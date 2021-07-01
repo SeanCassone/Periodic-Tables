@@ -5,12 +5,15 @@
  * @returns {00:00AM}
  *  the specified time string formatted as HH:MM:AM or PM
  */
-export function formatTime(inputTime) {
-  let hours = inputTime.getHours(); // gives the value in 24 hours format
-  const AmOrPm = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12;
-  const minutes = inputTime.getMinutes();
-  return `${hours}:${minutes}${AmOrPm}`;
+export function formatTime(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "pm" : "am";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  let strTime = hours + ":" + minutes + " " + ampm;
+  return strTime;
 }
 
 /**
@@ -24,9 +27,7 @@ export function formatDate(inputDate) {
   const date = new Date(inputDate);
   if (!isNaN(date.getTime())) {
     // Months use 0 index.
-    return (
-      date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear()
-    );
+    return date.getMonth() + 1 + "-" + date.getDate() + "" + date.getFullYear();
   }
 }
 
