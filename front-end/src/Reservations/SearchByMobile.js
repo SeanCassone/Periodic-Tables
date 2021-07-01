@@ -27,7 +27,7 @@ function SearchByMobile() {
   return (
     <>
       <ErrorAlert error={searchError} />
-      <div className="card mt-3 mx-auto" style={{ width: "25rem" }}>
+      <div className="card mt-3 mx-auto" style={{ width: "22rem" }}>
         <div className="card-body text-white bg-secondary">
           <h5 className="card-title text-center">Search by mobile number.</h5>
           <form onSubmit={submitHandler}>

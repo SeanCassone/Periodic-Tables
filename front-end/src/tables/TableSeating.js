@@ -74,11 +74,11 @@ function TableSeating() {
   return (
     <div>
       <ErrorAlert error={error} />
-      <div className="card mt-3 mx-auto" style={{ width: "23rem" }}>
+      <div className="card mt-3 mx-auto" style={{ width: "22rem" }}>
         <div className="card-body text-white bg-secondary">
+          <h5 className="card-title text-center">Assign table</h5>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="exampleFormControlSelect1">Table:</label>
               <select
                 className="form-control"
                 name="table_id"
@@ -88,12 +88,12 @@ function TableSeating() {
                 <option value="x">Choose a table...</option>
                 {listOptionForOpenTables}
               </select>
-              <button type="submit" className="btn btn-primary my-1">
+              <button type="submit" className="btn btn-primary my-2">
                 &nbsp;Submit
               </button>
               <button
                 type="button"
-                className="btn btn-secondary ml-2"
+                className="btn btn-danger ml-2"
                 onClick={cancel}
               >
                 Cancel
