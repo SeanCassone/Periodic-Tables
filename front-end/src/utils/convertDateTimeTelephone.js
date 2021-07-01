@@ -5,9 +5,9 @@
  * @returns {00:00AM}
  *  the specified time string formatted as HH:MM:AM or PM
  */
-export function formatTime(date) {
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
+export function formatTime(inputTime) {
+  let hours = inputTime.getHours();
+  let minutes = inputTime.getMinutes();
   const ampm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
