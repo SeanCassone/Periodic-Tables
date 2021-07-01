@@ -30,7 +30,7 @@ function ReservationList({ reservations }) {
               <th scope="col"></th>
             </tr>
           </thead>
-          {reservations.length ? currentReservations : null}
+          {reservations.length && currentReservations}
         </table>
         {!reservations.length ? <h5>No reservations found.</h5> : null}
       </div>
