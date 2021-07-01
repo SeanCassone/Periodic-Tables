@@ -48,7 +48,6 @@ function CreateEditReservation() {
     setFormData({ ...formData, [name]: value });
   }
 
-  // if reservation id else
   const submitHandler = async (event) => {
     event.preventDefault();
     const abortController = new AbortController();

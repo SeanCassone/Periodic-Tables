@@ -49,7 +49,7 @@ function ReservationTableBody({ reservation }) {
     >
       <tr>
         <th scope="row">{reservation_id}</th>
-        <td>{reservation_date.toLocaleString()}</td>
+        <td>{formatDate(reservationDate)}</td>
         <td>{formatTime(reservationDate)}</td>
         <td>{`${first_name} ${last_name}`}</td>
         <td>{formatMobile(mobile_number)}</td>
