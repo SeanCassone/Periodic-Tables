@@ -42,7 +42,7 @@ export function formatMobile(inputPhone) {
   inputPhone = inputPhone.replace(/[^\d]/g, "");
 
   //check if number length equals to 10
-  if (inputPhone.length == 10) {
+  if (inputPhone.length === 10) {
     //reformat and return phone number
     return inputPhone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
   }

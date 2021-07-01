@@ -8,6 +8,18 @@ import {
 
 function ReservationTableBody({ reservation }) {
   const history = useHistory();
+  const {
+    mobile_number,
+    reservation_time,
+    reservation_date,
+    reservation_id,
+    first_name,
+    last_name,
+    people,
+    status,
+  } = reservation;
+
+  const reservationDate = new Date(`${reservation_date} ${reservation_time}`);
 
   function cancelReservation() {
     const abortController = new AbortController();
@@ -26,18 +38,6 @@ function ReservationTableBody({ reservation }) {
     }
   }
 
-  const {
-    mobile_number,
-    reservation_time,
-    reservation_date,
-    reservation_id,
-    first_name,
-    last_name,
-    people,
-    status,
-  } = reservation;
-  const date = new Date(`${reservation_date} ${reservation_time}`);
-
   return (
     <tbody
       className={
@@ -49,8 +49,8 @@ function ReservationTableBody({ reservation }) {
     >
       <tr>
         <th scope="row">{reservation_id}</th>
-        <td>{formatDate(date)}</td>
-        <td>{formatTime(date)}</td>
+        <td>{formatDate(reservationDate)}</td>
+        <td>{formatTime(reservationDate)}</td>
         <td>{`${first_name} ${last_name}`}</td>
         <td>{formatMobile(mobile_number)}</td>
         <td>{people}</td>
