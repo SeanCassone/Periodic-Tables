@@ -55,7 +55,7 @@ function SearchByMobile() {
         {reservations.length ? (
           <ReservationTable reservations={reservations} />
         ) : (
-          <h6 className="text-center">No reservations found</h6>
+          <h6 className="text-center">No reservations found from Search.</h6>
         )}
       </div>
     </>

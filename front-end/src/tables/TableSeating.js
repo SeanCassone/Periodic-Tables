@@ -74,8 +74,8 @@ function TableSeating() {
   return (
     <div>
       <ErrorAlert error={error} />
-      <div className="card mt-3">
-        <div className="card-body">
+      <div className="card mt-3 mx-auto" style={{ width: "23rem" }}>
+        <div className="card-body text-white bg-secondary">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="exampleFormControlSelect1">Table:</label>
