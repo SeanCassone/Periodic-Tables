@@ -5,6 +5,7 @@ import useQuery from "../utils/useQuery";
 import ReservationTable from "../Reservations/ReservationTable";
 import TablesList from "../tables/TablesList";
 import ControlButtons from "./ControlButtons";
+import { formatDate } from "../utils/convertDateTimeTelephone";
 
 /**
  * Defines the dashboard page.
@@ -34,10 +35,10 @@ function Dashboard({ date }) {
 
   return (
     <main>
-      <h1 className="text-center">Dashboard</h1>
       <div className="container">
         <ErrorAlert error={reservationsError} />
-        <h4 className="text-center">Reservations for: {date}</h4>
+        <h4 className="display-4 text-center">{formatDate(date)}</h4>
+        <h4 className="text-center">Reservations</h4>
         <ControlButtons date={date} />
         <ReservationTable date={date} reservations={reservations} />
         <h4 className="text-center">Tables</h4>
