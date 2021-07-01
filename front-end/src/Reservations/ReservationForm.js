@@ -7,6 +7,7 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
     reservation_time,
     people,
   } = formData;
+
   return (
     <form className="was-validated" noValidate onSubmit={submitHandler}>
       <div className="row g-2">
@@ -82,8 +83,6 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             className="form-control"
             name="reservation_date"
             type="date"
-            placeholder="YYYY-MM-DD"
-            pattern="\d{4}-\d{2}-\d{2}"
             required={true}
             onChange={handleChange}
             defaultValue={reservation_date}
@@ -102,8 +101,6 @@ function Form({ formData, handleChange, submitHandler, cancel }) {
             className="form-control"
             name="reservation_time"
             type="time"
-            placeholder="HH:MM"
-            pattern="[0-9]{2}:[0-9]{2}"
             required={true}
             onChange={handleChange}
             defaultValue={reservation_time}

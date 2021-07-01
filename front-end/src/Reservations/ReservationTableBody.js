@@ -1,6 +1,10 @@
 import { Link, useHistory } from "react-router-dom";
 import { updateStatus } from "../utils/api";
-import { formatAsTime } from "../utils/date-time";
+import {
+  formatMobile,
+  formatDate,
+  formatTime,
+} from "../utils/convertDateTimeTelephone";
 
 function ReservationTableBody({ reservation }) {
   const history = useHistory();
@@ -22,6 +26,18 @@ function ReservationTableBody({ reservation }) {
     }
   }
 
+  const {
+    mobile_number,
+    reservation_time,
+    reservation_date,
+    reservation_id,
+    first_name,
+    last_name,
+    people,
+    status,
+  } = reservation;
+  const date = new Date(`${reservation_date} ${reservation_time}`);
+
   return (
     <tbody
       className={
@@ -29,22 +45,22 @@ function ReservationTableBody({ reservation }) {
           ? "bg-primary text-white text-center"
           : "bg-secondary text-white text-center"
       }
-      key={reservation.reservation_id}
+      key={reservation_id}
     >
       <tr>
-        <th scope="row">{reservation.reservation_id}</th>
-        <td>{reservation.reservation_date}</td>
-        <td>{formatAsTime(reservation.reservation_time)}</td>
-        <td>{`${reservation.first_name} ${reservation.last_name}`}</td>
-        <td>{reservation.mobile_number}</td>
-        <td>{reservation.people}</td>
+        <th scope="row">{reservation_id}</th>
+        <td>{formatDate(date)}</td>
+        <td>{formatTime(date)}</td>
+        <td>{`${first_name} ${last_name}`}</td>
+        <td>{formatMobile(mobile_number)}</td>
+        <td>{people}</td>
         <td data-reservation-id-status={reservation.reservation_id}>
-          {reservation.status}
+          {status}
         </td>
         <td className="text-center">
           <Link
             className="btn btn-warning ml-1"
-            to={`/reservations/${reservation.reservation_id}/edit`}
+            to={`/reservations/${reservation_id}/edit`}
           >
             <i className="bi bi-pencil-square" />
             &nbsp;Edit
@@ -65,7 +81,7 @@ function ReservationTableBody({ reservation }) {
           {reservation.status === "booked" && (
             <Link
               className="btn btn-success ml-1"
-              to={`/reservations/${reservation.reservation_id}/seat`}
+              to={`/reservations/${reservation_id}/seat`}
             >
               <i className="bi bi-person-plus" />
               &nbsp;Seat
