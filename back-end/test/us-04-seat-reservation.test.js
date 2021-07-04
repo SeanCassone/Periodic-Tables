@@ -165,7 +165,7 @@ describe("US-04 - Seat reservation", () => {
   });
 
   describe("Read reservation", () => {
-    describe("GET /reservations/:reservation_Id", () => {
+    describe("GET /reservations/:reservation_id", () => {
       test("returns 200 for an existing id", async () => {
         const response = await request(app)
           .get("/reservations/1")
