@@ -37,7 +37,6 @@ function Dashboard({ date }) {
     <main>
       <div className="container">
         <ErrorAlert error={reservationsError} />
-        <h6>© Sean Cassone</h6>
         <h4 className="display-4 text-center">{formatDate(date)}</h4>
         <h4 className="text-center">Reservations</h4>
         <ControlButtons date={date} />
@@ -45,6 +44,7 @@ function Dashboard({ date }) {
         <h4 className="text-center">Tables</h4>
         <ErrorAlert error={tablesError} />
         <TablesList tables={tables} />
+        <h5 className="text-center">© Sean Cassone</h5>
       </div>
     </main>
   );
